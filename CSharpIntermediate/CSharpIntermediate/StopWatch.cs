@@ -8,27 +8,43 @@ namespace CSharpIntermediate
 {
     class StopWatch
     {
-        private DateTime? stopWatchStarted = null;
-        private DateTime stopWatchStop;
+        private bool _start;
+        private DateTime _startTime;
+        private DateTime _stopTime;
+        private TimeSpan _recordedTime;
 
-        public DateTime? start()
+        public void start()
         {
-            if (stopWatchStarted != null)
+            if (_start)
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException("Stopwatch already started. Please stop the running instance before starting it again.");
             }
-            stopWatchStarted = DateTime.Now;
 
-            return stopWatchStarted;
+            Console.WriteLine("Starting Stopwatch...");
+
+            _startTime = DateTime.Now;
+            _start = true;
+
         }
 
-        public DateTime? stop()
+        public TimeSpan stop()
         {
-            stopWatchStop = DateTime.Now;
-            stopWatchStarted = null;
+            if (_start == false)
+            {
+                throw new InvalidOperationException("Stopwatch is not started. It must be started before stopping.");
+            }
 
-            return stopWatchStop;
+            Console.WriteLine("Stopping Stopwatch");
+
+            _stopTime = DateTime.Now;
+
+            _recordedTime = _stopTime - _startTime;
+
+            _start = false;
+            
+            return _recordedTime;
         }
+
     }
 
 }

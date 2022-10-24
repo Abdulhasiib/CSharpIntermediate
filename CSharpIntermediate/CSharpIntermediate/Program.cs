@@ -15,17 +15,18 @@ namespace CSharpIntermediate
             {
                 var stopWatch = new StopWatch();
 
-                DateTime start = (DateTime)stopWatch.start();
+                stopWatch.start();
 
-                //DateTime startagain = (DateTime)stopWatch.start();
+                stopWatch.start();
 
                 Thread.Sleep(11000);
 
-                DateTime stop = (DateTime)stopWatch.stop();
+                TimeSpan _recordTime = stopWatch.stop();
 
-                TimeSpan timeDuration = stop - start;
-                Console.WriteLine(timeDuration);
+                Console.WriteLine($"Time recorded: {_recordTime.Hours} HH : {_recordTime.Minutes} MM : {_recordTime.Seconds} SS");
+
                 Console.ReadLine();
+                
             }
             catch(InvalidOperationException e)
             {
